@@ -15,12 +15,26 @@ ball = canvas.create_oval(290, 190, 310, 210, fill="white")
 left_paddle = canvas.create_rectangle(30, 150, 40, 250, fill="blue")
 right_paddle = canvas.create_rectangle(560, 150, 570, 250, fill="red")
 
+# Initialize scores
+player1_score = 0
+player2_score = 0
+
+# Display scores
+score_text = canvas.create_text(300, 50, text=f"{player1_score} : {player2_score}", font=("Arial", 24), fill="white")
+
 # Ball movement and speed
 ball_dx = 3
 ball_dy = 3
 
-def move_ball():
+def reset_ball():
+    """Reset the ball to the center after a point is scored."""
     global ball_dx, ball_dy
+    canvas.coords(ball, 290, 190, 310, 210)
+    ball_dx = -ball_dx  # Reverse direction
+    ball_dy = 3  # Reset ball movement
+
+def move_ball():
+    global ball_dx, ball_dy, player1_score, player2_score
     canvas.move(ball, ball_dx, ball_dy)
     pos = canvas.coords(ball)
 
@@ -31,11 +45,25 @@ def move_ball():
     # Bounce off paddles
     if pos[0] <= 40 and pos[1] >= canvas.coords(left_paddle)[1] and pos[3] <= canvas.coords(left_paddle)[3]:
         ball_dx = -ball_dx
-    if pos[2] >= 560 and pos[1] >= canvas.coords(right_paddle)[1] and pos[3] <= canvas.coords(right_paddle)[3]:
+    elif pos[2] >= 560 and pos[1] >= canvas.coords(right_paddle)[1] and pos[3] <= canvas.coords(right_paddle)[3]:
         ball_dx = -ball_dx
+
+    # Scoring system
+    if pos[0] <= 0:  # Player 2 scores
+        player2_score += 1
+        update_score()
+        reset_ball()
+    elif pos[2] >= 600:  # Player 1 scores
+        player1_score += 1
+        update_score()
+        reset_ball()
 
     # Game loop
     root.after(20, move_ball)
+
+def update_score():
+    """Update the displayed score."""
+    canvas.itemconfig(score_text, text=f"{player1_score} : {player2_score}")
 
 # Paddle movement
 def move_left_paddle(event):
