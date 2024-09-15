@@ -1,0 +1,3 @@
+Ping Pong Game with Tkinter
+
+Create a python program that creates a simple Ping Pong game using the Tkinter library for the GUI. The game involves two paddles controlled by the players and a ball that bounces between them. Player 1 uses the 'W' and 'S' keys to move the left paddle up and down, while Player 2 uses the 'Up' and 'Down' arrow keys to control the right paddle. The game tracks the players' scores, and the ball resets to the center after each point is scored. The objective is to score by hitting the ball past the opponent's paddle.

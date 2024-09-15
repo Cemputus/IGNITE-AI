@@ -1,4 +1,4 @@
-Here’s an explanation of how the Ping Pong game works:
+
 
 ### 1. **Game Window Setup:**
    - When the game starts, a window is created using the `Tkinter` library. This window contains a **black background** where all game elements (ball and paddles) are displayed.
